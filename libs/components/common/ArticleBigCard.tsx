@@ -11,6 +11,7 @@ import { userVar } from '../../../apollo/store';
 import { useRouter } from 'next/router';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { BoardArticle } from '../../types/board-article/board-article';
+import { htmlToPlainText } from '../../utils';
 
 interface ArticleBigCardProps {
 	article: BoardArticle;
@@ -42,7 +43,7 @@ const ArticleBigCard = (props: ArticleBigCardProps) => {
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'}>{article?.articleTitle}</strong>
-					<p className={'desc'}>{article?.articleContent}</p>
+					<p className={'desc'}>{htmlToPlainText(article?.articleContent) || 'no content'}</p>
 
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>

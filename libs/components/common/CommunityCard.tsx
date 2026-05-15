@@ -13,6 +13,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CommentIcon from '@mui/icons-material/Comment';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { htmlToPlainText } from '../../utils';
 
 interface CommunityCardProps {
 	boardArticle: BoardArticle;
@@ -115,7 +116,7 @@ const CommunityCard = (props: CommunityCardProps) => {
 							<p className="writer-name">{boardArticle?.memberData?.memberNick}</p>
 						</Stack>
 						<Stack className={'article-content'}>
-							<p className="article-desc">{boardArticle?.articleContent}</p>
+							<p className="article-desc">{htmlToPlainText(boardArticle?.articleContent) || 'no content'}</p>
 						</Stack>
 						<div className="arrow-wrapper" onClick={(e) => chooseArticleHandler(e, boardArticle)}>
 							<IconButton color={'default'}>

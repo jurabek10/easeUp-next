@@ -11,6 +11,7 @@ import { REACT_APP_API_URL } from '../../config';
 import IconButton from '@mui/material/IconButton';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { htmlToPlainText } from '../../utils';
 
 interface CommunityCardProps {
 	article: BoardArticle;
@@ -88,7 +89,7 @@ const CommunityCard = (props: CommunityCardProps) => {
 					>
 						{article.articleTitle}
 					</strong>
-					<p className={'desc'}>{article.articleContent ?? 'no content'}</p>
+					<p className={'desc'}>{htmlToPlainText(article.articleContent) || 'no content'}</p>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
 						<p>{article.articleCategory}</p>
