@@ -1,16 +1,15 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useState } from 'react';
 import { useRouter, withRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { getJwtToken, logOut, updateUserInfo } from '../auth';
-import { Stack, Box } from '@mui/material';
+import { Stack, Box, Drawer, IconButton, Divider } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import { alpha, styled } from '@mui/material/styles';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import { CaretDown } from 'phosphor-react';
-import useDeviceDetect from '../hooks/useDeviceDetect';
+import { CaretDown, List as BurgerIcon, X as CloseIcon } from 'phosphor-react';
 import Link from 'next/link';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import { useReactiveVar } from '@apollo/client';
@@ -21,7 +20,6 @@ import NotifacationModal from './common/NotificationModal';
 import NotificationBadge from './common/NotificationBadge';
 
 const Top = () => {
-	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
 	const { t, i18n } = useTranslation('common');
 	const router = useRouter();
@@ -35,6 +33,7 @@ const Top = () => {
 	const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(null);
 	const logoutOpen = Boolean(logoutAnchor);
 	const [isNotifModalOpen, setNotifModalOpen] = useState(false);
+	const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -60,6 +59,10 @@ const Top = () => {
 		const jwt = getJwtToken();
 		if (jwt) updateUserInfo(jwt);
 	}, []);
+
+	useEffect(() => {
+		setMobileMenuOpen(false);
+	}, [router.asPath]);
 
 	/** HANDLERS **/
 	const langClick = (e: any) => {
@@ -104,6 +107,9 @@ const Top = () => {
 		setNotifModalOpen((prev) => !prev);
 	};
 
+	const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
+	const closeMobileMenu = () => setMobileMenuOpen(false);
+
 	const StyledMenu = styled((props: MenuProps) => (
 		<Menu
 			elevation={0}
@@ -146,174 +152,236 @@ const Top = () => {
 		window.addEventListener('scroll', changeNavbarColor);
 	}
 
-	if (device == 'mobile') {
-		return (
-			<Stack className={'top'}>
-				<Link href={'/'}>
-					<div>{t('Home')}</div>
-				</Link>
-				<Link href={'/property'}>
-					<div>{t('Destinations')}</div>
-				</Link>
-				<Link href={'/agent'}>
-					<div> {t('Agents')} </div>
-				</Link>
-				<Link href={'/community?articleCategory=FREE'}>
-					<div> {t('Community')} </div>
-				</Link>
-				<Link href={'/cs'}>
-					<div> {t('CS')} </div>
-				</Link>
-			</Stack>
-		);
-	} else {
-		return (
-			<Stack className={'navbar'}>
-				<Stack className={`navbar-main ${colorChange ? 'transparent' : ''} ${bgColor ? 'transparent' : ''}`}>
-					<Stack className={'container'}>
-						<Box component={'div'} className={'logo-box'}>
-							<Link href={'/'}>
-								<img src="/img/logo/logo.svg" alt="" />
-							</Link>
-							<Link href={'/'}>
-								<div className="logo-text">EaseUp</div>
-							</Link>
-						</Box>
-						<Box component={'div'} className={'router-box'}>
-							<Link href={'/'}>
-								<div>{t('Home')}</div>
-							</Link>
-							<Link href={'/property'}>
-								<div>{t('Destinations')}</div>
-							</Link>
-							<Link href={'/agent'}>
-								<div> {t('Agents')} </div>
-							</Link>
-							<Link href={'/community?articleCategory=FREE'}>
-								<div> {t('Community')} </div>
-							</Link>
-							{user?._id && (
-								<Link href={'/mypage'}>
-									<div> {t('My Page')} </div>
-								</Link>
-							)}
-							<Link href={'/cs'}>
-								<div className={'cs-link'}> {t('CS')} </div>
-							</Link>
-						</Box>
-						<Box component={'div'} className={'user-box'}>
-							{user?._id ? (
-								<>
-									<div className={'login-user'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)}>
-										<img
-											src={
-												user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'
-											}
-											alt=""
-										/>
-									</div>
+	const navLinks = [
+		{ href: '/', label: t('Home') },
+		{ href: '/property', label: t('Destinations') },
+		{ href: '/agent', label: t('Agents') },
+		{ href: '/community?articleCategory=FREE', label: t('Community') },
+		...(user?._id ? [{ href: '/mypage', label: t('My Page') }] : []),
+		{ href: '/cs', label: t('CS') },
+	];
 
-									<Menu
-										id="basic-menu"
-										anchorEl={logoutAnchor}
-										open={logoutOpen}
-										onClose={() => {
-											setLogoutAnchor(null);
-										}}
-										sx={{ mt: '5px' }}
-									>
-										<MenuItem onClick={() => logOut()}>
-											<Logout fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
-											Logout
-										</MenuItem>
-									</Menu>
-								</>
-							) : (
-								<Link href={'/account/join'}>
-									<div className={'join-box'}>
-										<AccountCircleOutlinedIcon style={{ color: '#f97316' }} />
-										<span>
-											{t('Login')} / {t('Register')}
-										</span>
-									</div>
-								</Link>
-							)}
-
-							<div className={'lan-box'}>
-								{user?._id && (
-									<>
-										<Button>
-											<NotificationsOutlinedIcon onClick={toggleNotificationModal} className={'notification-icon'} />
-										</Button>
-									</>
-								)}
-
-								<Button
-									disableRipple
-									className="btn-lang"
-									onClick={langClick}
-									endIcon={<CaretDown size={14} color="#ffffff" weight="fill" />}
-								>
-									<Box component={'div'} className={'flag'}>
-										{lang !== null ? (
-											<img src={`/img/flag/lang${lang}.png`} alt={'usaFlag'} />
-										) : (
-											<img src={`/img/flag/langen.png`} alt={'usaFlag'} />
-										)}
-									</Box>
-								</Button>
-
-								<StyledMenu anchorEl={anchorEl2} open={drop} onClose={langClose} sx={{ position: 'absolute' }}>
-									<MenuItem disableRipple onClick={langChoice} id="en">
-										<img
-											className="img-flag"
-											src={'/img/flag/langen.png'}
-											onClick={langChoice}
-											id="en"
-											alt={'usaFlag'}
-										/>
-										{t('English')}
-									</MenuItem>
-									<MenuItem disableRipple onClick={langChoice} id="kr">
-										<img
-											className="img-flag"
-											src={'/img/flag/langkr.png'}
-											onClick={langChoice}
-											id="uz"
-											alt={'koreanFlag'}
-										/>
-										{t('Korean')}
-									</MenuItem>
-									<MenuItem disableRipple onClick={langChoice} id="ru">
-										<img
-											className="img-flag"
-											src={'/img/flag/langru.png'}
-											onClick={langChoice}
-											id="ru"
-											alt={'russiaFlag'}
-										/>
-										{t('Russian')}
-									</MenuItem>
-								</StyledMenu>
-							</div>
-						</Box>
+	return (
+		<Stack className={'navbar'}>
+			<Stack className={`navbar-main ${colorChange ? 'transparent' : ''} ${bgColor ? 'transparent' : ''}`}>
+				<Stack className={'container'}>
+					<Box component={'div'} className={'logo-box'}>
+						<Link href={'/'}>
+							<img src="/img/logo/logo.svg" alt="" />
+						</Link>
+						<Link href={'/'}>
+							<div className="logo-text">EaseUp</div>
+						</Link>
+					</Box>
+					<Box component={'div'} className={'router-box'}>
+						{navLinks.map((link) => (
+							<Link href={link.href} key={link.href}>
+								<div>{link.label}</div>
+							</Link>
+						))}
+					</Box>
+					<Box component={'div'} className={'user-box'}>
 						{user?._id ? (
 							<>
-								<div style={{ position: 'absolute', top: 80, right: 0 }}>
-									<NotificationBadge />
+								<div className={'login-user'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)}>
+									<img
+										src={
+											user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'
+										}
+										alt=""
+									/>
 								</div>
-								{isNotifModalOpen && (
-									<div style={{ position: 'absolute', top: 80, right: 0 }}>
-										<NotifacationModal />
-									</div>
-								)}
+
+								<Menu
+									id="basic-menu"
+									anchorEl={logoutAnchor}
+									open={logoutOpen}
+									onClose={() => {
+										setLogoutAnchor(null);
+									}}
+									sx={{ mt: '5px' }}
+								>
+									<MenuItem onClick={() => logOut()}>
+										<Logout fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
+										Logout
+									</MenuItem>
+								</Menu>
 							</>
-						) : null}
-					</Stack>
+						) : (
+							<Link href={'/account/join'}>
+								<div className={'join-box'}>
+									<AccountCircleOutlinedIcon style={{ color: '#f97316' }} />
+									<span>
+										{t('Login')} / {t('Register')}
+									</span>
+								</div>
+							</Link>
+						)}
+
+						<div className={'lan-box'}>
+							{user?._id && (
+								<>
+									<Button>
+										<NotificationsOutlinedIcon onClick={toggleNotificationModal} className={'notification-icon'} />
+									</Button>
+								</>
+							)}
+
+							<Button
+								disableRipple
+								className="btn-lang"
+								onClick={langClick}
+								endIcon={<CaretDown size={14} color="#ffffff" weight="fill" />}
+							>
+								<Box component={'div'} className={'flag'}>
+									{lang !== null ? (
+										<img src={`/img/flag/lang${lang}.png`} alt={'usaFlag'} />
+									) : (
+										<img src={`/img/flag/langen.png`} alt={'usaFlag'} />
+									)}
+								</Box>
+							</Button>
+
+							<StyledMenu anchorEl={anchorEl2} open={drop} onClose={langClose} sx={{ position: 'absolute' }}>
+								<MenuItem disableRipple onClick={langChoice} id="en">
+									<img
+										className="img-flag"
+										src={'/img/flag/langen.png'}
+										onClick={langChoice}
+										id="en"
+										alt={'usaFlag'}
+									/>
+									{t('English')}
+								</MenuItem>
+								<MenuItem disableRipple onClick={langChoice} id="kr">
+									<img
+										className="img-flag"
+										src={'/img/flag/langkr.png'}
+										onClick={langChoice}
+										id="uz"
+										alt={'koreanFlag'}
+									/>
+									{t('Korean')}
+								</MenuItem>
+								<MenuItem disableRipple onClick={langChoice} id="ru">
+									<img
+										className="img-flag"
+										src={'/img/flag/langru.png'}
+										onClick={langChoice}
+										id="ru"
+										alt={'russiaFlag'}
+									/>
+									{t('Russian')}
+								</MenuItem>
+							</StyledMenu>
+						</div>
+					</Box>
+
+					<IconButton
+						className={'burger-btn'}
+						onClick={toggleMobileMenu}
+						aria-label={'Open menu'}
+						size={'large'}
+					>
+						<BurgerIcon size={28} color="#ffffff" weight="bold" />
+					</IconButton>
+
+					{user?._id ? (
+						<>
+							<div style={{ position: 'absolute', top: 80, right: 0 }}>
+								<NotificationBadge />
+							</div>
+							{isNotifModalOpen && (
+								<div style={{ position: 'absolute', top: 80, right: 0 }}>
+									<NotifacationModal />
+								</div>
+							)}
+						</>
+					) : null}
 				</Stack>
 			</Stack>
-		);
-	}
+
+			<Drawer
+				anchor={'right'}
+				open={mobileMenuOpen}
+				onClose={closeMobileMenu}
+				PaperProps={{ className: 'mobile-drawer-paper' }}
+				ModalProps={{ keepMounted: true }}
+			>
+				<div className={'mobile-drawer'}>
+					<div className={'drawer-header'}>
+						<div className={'drawer-logo'}>
+							<img src="/img/logo/logo.svg" alt="" />
+							<span>EaseUp</span>
+						</div>
+						<IconButton onClick={closeMobileMenu} aria-label={'Close menu'} size={'large'}>
+							<CloseIcon size={24} color="#181a20" weight="bold" />
+						</IconButton>
+					</div>
+
+					<Divider />
+
+					<div className={'drawer-links'}>
+						{navLinks.map((link) => (
+							<Link href={link.href} key={link.href} onClick={closeMobileMenu}>
+								<div className={'drawer-link'}>{link.label}</div>
+							</Link>
+						))}
+					</div>
+
+					<Divider />
+
+					<div className={'drawer-actions'}>
+						{user?._id ? (
+							<div className={'drawer-user'}>
+								<img
+									src={user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'}
+									alt=""
+								/>
+								<button
+									className={'drawer-logout'}
+									onClick={() => {
+										logOut();
+										closeMobileMenu();
+									}}
+								>
+									<Logout fontSize="small" style={{ marginRight: 8 }} />
+									{t('Logout')}
+								</button>
+							</div>
+						) : (
+							<Link href={'/account/join'} onClick={closeMobileMenu}>
+								<div className={'drawer-join'}>
+									<AccountCircleOutlinedIcon style={{ color: '#ffffff' }} />
+									<span>
+										{t('Login')} / {t('Register')}
+									</span>
+								</div>
+							</Link>
+						)}
+
+						<div className={'drawer-langs'}>
+							{(['en', 'kr', 'ru'] as const).map((code) => (
+								<button
+									key={code}
+									className={`drawer-lang ${lang === code ? 'active' : ''}`}
+									onClick={async () => {
+										setLang(code);
+										localStorage.setItem('locale', code);
+										await router.push(router.asPath, router.asPath, { locale: code });
+										closeMobileMenu();
+									}}
+								>
+									<img src={`/img/flag/lang${code}.png`} alt={code} />
+									<span>{code === 'en' ? t('English') : code === 'kr' ? t('Korean') : t('Russian')}</span>
+								</button>
+							))}
+						</div>
+					</div>
+				</div>
+			</Drawer>
+		</Stack>
+	);
 };
 
 export default withRouter(Top);
