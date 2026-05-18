@@ -1,28 +1,43 @@
-#pc-wrap {
+#pc-wrap,
+#mobile-wrap {
 	.join-page {
 		position: relative;
-		padding: 90px 0px;
+		padding: 90px 20px;
 		width: 100%;
 		height: auto;
+		display: flex;
+		justify-content: center;
+		box-sizing: border-box;
+
 		.container {
+			width: 100%;
+			max-width: 1200px;
+			margin: 0 auto;
 			align-items: center;
+			justify-content: center;
+
 			.main {
-				width: 1200px;
-				height: 900px;
+				width: 100%;
+				max-width: 1200px;
+				min-height: 900px;
 				display: flex;
-				//  flex-direction: row;
 				align-items: center;
 				justify-content: center;
-				border-radius: 12px 0px 0px 12px;
+				border-radius: 12px;
 				background: #fff;
-				// box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+				box-sizing: border-box;
+
 				.left {
-					width: 50%;
+					width: 100%;
+					max-width: 600px;
 					height: 100%;
 					display: flex;
 					flex-direction: column;
 					align-items: center;
 					justify-content: center;
+					padding: 40px 20px;
+					box-sizing: border-box;
+
 					.logo {
 						display: flex;
 						flex-direction: row;
@@ -71,7 +86,8 @@
 					}
 					.input-wrap {
 						margin-top: 45px;
-						width: 470px;
+						width: 100%;
+						max-width: 470px;
 						display: flex;
 						flex-direction: column;
 
@@ -104,16 +120,14 @@
 								font-weight: 400;
 								line-height: 26px;
 								color: #717171;
-								// &:focus {
-								// 	border-color: #f97316;
-								// 	outline: none; // Optional, removes default focus outline
-								// }
+								box-sizing: border-box;
 							}
 						}
 					}
 					.register {
 						margin-top: 45px;
-						width: 470px;
+						width: 100%;
+						max-width: 470px;
 						display: flex;
 						flex-direction: column;
 						align-items: center;
@@ -121,6 +135,7 @@
 							display: flex;
 							flex-direction: row;
 							align-items: center;
+							flex-wrap: wrap;
 							span.text {
 								font-family: $font;
 								font-size: 14px;
@@ -144,6 +159,8 @@
 							flex-direction: row;
 							justify-content: space-between;
 							align-items: center;
+							flex-wrap: wrap;
+							gap: 8px;
 							a {
 								font-family: $font;
 								font-size: 14px;
@@ -173,6 +190,7 @@
 					}
 					.ask-info {
 						margin-top: 90px;
+						text-align: center;
 						p {
 							font-family: $font;
 							font-size: 20px;
@@ -195,6 +213,138 @@
 					height: 100%;
 					background-image: url('/img/banner/joinBg.svg');
 					background-size: cover;
+				}
+			}
+		}
+
+		/* Tablet */
+		@media screen and (max-width: 1024px) {
+			padding: 60px 16px;
+			.container .main {
+				min-height: auto;
+				padding: 40px 0;
+				.left {
+					.ask-info {
+						margin-top: 50px;
+					}
+				}
+			}
+		}
+
+		/* Small tablet / large phone */
+		@media screen and (max-width: 768px) {
+			padding: 40px 14px;
+			.container .main {
+				border-radius: 10px;
+				padding: 30px 0;
+				.left {
+					padding: 20px 16px;
+					.logo {
+						img {
+							width: 48px;
+							height: 48px;
+						}
+						span {
+							font-size: 32px;
+						}
+					}
+					.info {
+						margin-top: 20px;
+						span {
+							font-size: 18px;
+						}
+					}
+					.input-wrap {
+						margin-top: 30px;
+						.input-box input {
+							height: 50px;
+						}
+					}
+					.register {
+						margin-top: 30px;
+						.type-option {
+							flex-direction: column;
+							align-items: flex-start;
+							div {
+								margin-left: 0;
+							}
+						}
+						button {
+							height: 50px;
+							font-size: 14px;
+						}
+					}
+					.ask-info {
+						margin-top: 40px;
+						p {
+							font-size: 16px;
+							b {
+								font-size: 22px;
+								margin-left: 6px;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/* Mobile */
+		@media screen and (max-width: 480px) {
+			padding: 24px 10px;
+			.container .main {
+				padding: 20px 0;
+				.left {
+					padding: 16px 10px;
+					.logo {
+						img {
+							width: 40px;
+							height: 40px;
+						}
+						span {
+							font-size: 26px;
+							margin-left: 8px;
+						}
+					}
+					.info {
+						margin-top: 16px;
+						span {
+							font-size: 16px;
+						}
+					}
+					.input-wrap {
+						margin-top: 24px;
+						.input-box {
+							margin-top: 14px;
+							span {
+								font-size: 13px;
+							}
+							input {
+								height: 46px;
+								font-size: 13px;
+							}
+						}
+					}
+					.register {
+						margin-top: 24px;
+						.remember-info {
+							flex-direction: column;
+							align-items: flex-start;
+						}
+						button {
+							height: 46px;
+							margin-top: 18px;
+							font-size: 13px;
+						}
+					}
+					.ask-info {
+						margin-top: 28px;
+						p {
+							font-size: 14px;
+							b {
+								font-size: 18px;
+							}
+						}
+					}
 				}
 			}
 		}
