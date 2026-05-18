@@ -18,6 +18,9 @@ const style = {
 	left: '50%',
 	transform: 'translate(-50%, -50%)',
 	width: 'auto',
+	maxWidth: '95vw',
+	maxHeight: '90vh',
+	overflowY: 'auto' as 'auto',
 	bgcolor: 'background.paper',
 	borderRadius: '12px',
 	outline: 'none',
@@ -314,10 +317,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 		}
 	};
 
-	if (device === 'mobile') {
-		return <div>HEADER FILTER MOBILE</div>;
-	} else {
-		return (
+	return (
 			<>
 				<Stack className={'search-box'}>
 					<Stack className={'select-box'}>
@@ -562,7 +562,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				</Modal>
 			</>
 		);
-	}
 };
 
 HeaderFilter.defaultProps = {
