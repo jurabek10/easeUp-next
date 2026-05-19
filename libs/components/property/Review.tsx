@@ -27,10 +27,7 @@ const Review = (props: ReviewProps) => {
 		if (id === user?._id) router.push('/mypage');
 		else router.push(`/member?memberId=${id}`);
 	};
-	if (device === 'mobile') {
-		return <div>REVIEW</div>;
-	} else {
-		return (
+	return (
 			<Stack className={'review-config'}>
 				<Stack className={'review-mb-info'}>
 					<Stack className={'img-name-box'}>
@@ -50,7 +47,6 @@ const Review = (props: ReviewProps) => {
 				</Stack>
 			</Stack>
 		);
-	}
 };
 
 export default Review;

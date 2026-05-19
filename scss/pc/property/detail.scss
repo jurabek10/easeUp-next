@@ -1,9 +1,19 @@
-#pc-wrap {
+#pc-wrap,
+#mobile-wrap {
 	#property-detail-page {
 		position: relative;
 		background: #fff;
 		padding-top: 87px;
 		padding-bottom: 200px;
+		.container {
+			position: relative;
+			width: 100%;
+			max-width: 1300px;
+			margin: 0 auto;
+			padding: 0 24px;
+			box-sizing: border-box;
+			display: flex;
+		}
 		.property-detail-config {
 			width: 100%;
 			height: auto;
@@ -17,9 +27,13 @@
 					width: 100%;
 					height: auto;
 					flex-direction: row;
+					flex-wrap: wrap;
 					justify-content: space-between;
+					gap: 18px;
 					.left-box {
-						width: 50%;
+						flex: 1 1 320px;
+						min-width: 0;
+						width: auto;
 						height: auto;
 						.title-main {
 							color: #181a20;
@@ -188,7 +202,8 @@
 					// }
 					.wrapper {
 						position: relative;
-						width: 1300px;
+						width: 100%;
+						max-width: 1300px;
 						height: 600px;
 						border-radius: 5px;
 
@@ -307,21 +322,28 @@
 				width: 100%;
 				height: auto;
 				flex-direction: row;
+				align-items: flex-start;
 				gap: 22px;
 				.left-config {
-					width: 960px;
+					width: 100%;
+					flex: 1 1 0;
+					min-width: 0;
+					max-width: 960px;
 					height: auto;
 					gap: 40px;
 					.options-config {
 						width: 100%;
 						height: auto;
-						flex-direction: row;
-						gap: 47.5px;
+						display: grid;
+						grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+						gap: 20px;
 						.option {
 							width: auto;
 							height: auto;
+							display: flex;
 							flex-direction: row;
-							gap: 17px;
+							align-items: center;
+							gap: 14px;
 							.svg-box {
 								width: 56px;
 								height: 50px;
@@ -404,6 +426,9 @@
 						.top {
 							width: 100%;
 							height: auto;
+							flex-direction: column;
+							align-items: flex-start;
+							justify-content: flex-start;
 							gap: 30px;
 							.title {
 								color: #181a20;
@@ -426,6 +451,7 @@
 						.bottom {
 							width: 100%;
 							height: auto;
+							align-items: stretch;
 							gap: 30px;
 							.title {
 								color: #181a20;
@@ -439,9 +465,13 @@
 								width: 100%;
 								height: auto;
 								flex-direction: row;
-								gap: 230px;
+								flex-wrap: wrap;
+								justify-content: flex-start;
+								gap: 24px 80px;
 								.left,
 								.right {
+									flex: 1 1 280px;
+									min-width: 0;
 									.info {
 										width: auto;
 										height: auto;
@@ -522,7 +552,7 @@
 					}
 
 					.agent-info {
-						width: 960px;
+						width: 100%;
 						.title {
 							color: #181a20;
 							font-family: 'Poppins', sans-serif;
@@ -535,15 +565,17 @@
 						.agent-wrapper {
 							display: flex;
 							flex-direction: row;
+							flex-wrap: wrap;
 							justify-content: space-between;
 							align-items: center;
-							padding-left: 38px;
-							padding-right: 38px;
-							padding-bottom: 12px;
+							gap: 24px;
+							padding: 24px 38px 12px;
 							border-radius: 12px;
 							border: 1px solid #c4c4c4;
 							.right {
-								width: 380px;
+								width: 100%;
+								max-width: 380px;
+								flex: 1 1 320px;
 								border: 1px solid #ffffff;
 								border-radius: 20px;
 								box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
@@ -599,7 +631,9 @@
 								}
 							}
 							.left {
-								width: 450px;
+								width: 100%;
+								max-width: 450px;
+								flex: 1 1 320px;
 								.agent-inner {
 									display: flex;
 									flex-direction: column;
@@ -915,10 +949,13 @@
 					}
 				}
 				.right-config {
-					width: 318px;
+					width: 100%;
+					max-width: 318px;
+					flex: 0 0 318px;
 					height: fit-content;
 					padding: 30px 25px;
 					margin-top: 30px;
+					box-sizing: border-box;
 					gap: 20px;
 					border-radius: 12px;
 					border: 1px solid rgba(196, 196, 196, 0.79);
@@ -1060,7 +1097,470 @@
 						width: 100%;
 						.similar-homes-slide {
 							width: 411px;
+							max-width: 100%;
 						}
+					}
+				}
+			}
+		}
+
+		/* ============================================================
+		 * Property detail page — responsive overrides
+		 * ============================================================ */
+
+		/* Small desktop / large tablet */
+		@media screen and (max-width: 1280px) {
+			padding-bottom: 120px;
+			.property-detail-config {
+				.property-info-config {
+					.images .wrapper {
+						height: 520px;
+					}
+				}
+				.property-desc-config {
+					gap: 18px;
+				}
+			}
+		}
+
+		/* Tablet */
+		@media screen and (max-width: 1024px) {
+			padding-bottom: 80px;
+			.property-detail-config {
+				padding-top: 36px;
+				gap: 24px;
+				.property-info-config {
+					gap: 22px;
+					.info {
+						.left-box {
+							.title-main {
+								font-size: 26px;
+							}
+						}
+						.right-box {
+							align-items: flex-start;
+							p {
+								font-size: 22px;
+							}
+							.buttons {
+								margin: 0 0 12px 0;
+							}
+						}
+					}
+					.images .wrapper {
+						height: 460px;
+					}
+				}
+				.property-desc-config {
+					flex-direction: column;
+					gap: 24px;
+					.left-config {
+						max-width: 100%;
+						width: 100%;
+						gap: 32px;
+						.options-config {
+							grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+						}
+						.prop-desc-config {
+							padding: 24px 28px 36px;
+							.bottom .info-box {
+								gap: 16px 40px;
+							}
+						}
+						.address-config {
+							padding: 24px 28px;
+							.map-box {
+								height: 340px;
+							}
+						}
+						.agent-info {
+							.agent-wrapper {
+								padding: 22px 28px 16px;
+							}
+						}
+						.reviews-config {
+							padding: 24px 28px 32px;
+						}
+						.leave-review-config {
+							padding: 24px 28px;
+						}
+					}
+					.right-config {
+						width: 100%;
+						max-width: 100%;
+						flex: 1 1 100%;
+						margin-top: 0;
+					}
+				}
+				.similar-properties-config {
+					gap: 32px;
+					margin-top: 30px;
+					.title-pagination-box {
+						.title-box {
+							width: auto;
+							.main-title {
+								font-size: 24px;
+							}
+						}
+					}
+					.cards-box .similar-homes-swiper .similar-homes-slide {
+						width: 340px;
+					}
+				}
+			}
+		}
+
+		/* Mobile (large phone) */
+		@media screen and (max-width: 768px) {
+			padding-top: 70px;
+			padding-bottom: 60px;
+			.container {
+				padding: 0 16px;
+			}
+			.property-detail-config {
+				padding-top: 24px;
+				gap: 20px;
+				.property-info-config {
+					.info {
+						.left-box {
+							.title-main {
+								font-size: 22px;
+							}
+							.top-box {
+								flex-wrap: wrap;
+								gap: 8px;
+								.city,
+								.date {
+									font-size: 12px;
+								}
+								.buy-rent-box .buy-rent {
+									font-size: 13px;
+								}
+							}
+							.bottom-box p {
+								font-size: 13px;
+							}
+						}
+						.right-box {
+							align-items: flex-start;
+							flex: 1 1 100%;
+							flex-direction: row;
+							justify-content: space-between;
+							align-items: center;
+							.buttons {
+								margin: 0;
+								gap: 16px;
+								p {
+									font-size: 15px;
+								}
+							}
+							p {
+								font-size: 20px;
+							}
+						}
+					}
+					.images .wrapper {
+						height: 360px;
+						.sliders {
+							bottom: 14px;
+							label {
+								width: 11px;
+								height: 11px;
+							}
+						}
+					}
+				}
+				.property-desc-config {
+					gap: 18px;
+					.left-config {
+						gap: 24px;
+						.options-config {
+							grid-template-columns: repeat(2, minmax(0, 1fr));
+							gap: 16px;
+							.option {
+								gap: 10px;
+								.svg-box {
+									width: 46px;
+									height: 44px;
+									img {
+										width: 28px;
+									}
+									svg {
+										width: 20px;
+										height: 18px;
+									}
+								}
+								.option-includes {
+									.title,
+									.option-data {
+										font-size: 13px;
+									}
+								}
+							}
+						}
+						.agent-config {
+							padding: 18px 0;
+							.agent-img {
+								width: 46px;
+								height: 46px;
+							}
+							.agent-content {
+								.name {
+									font-size: 16px;
+								}
+								.agent-wrapper {
+									flex-wrap: wrap;
+									gap: 6px;
+									p {
+										font-size: 13px;
+									}
+									.agent-quality {
+										margin: 0;
+									}
+								}
+							}
+							}
+							.prop-desc-config {
+								padding: 20px 18px 28px;
+								overflow: hidden;
+								gap: 32px;
+								.top {
+								gap: 16px;
+								.title {
+									font-size: 16px;
+								}
+								.desc {
+									font-size: 13px;
+									max-height: none;
+								}
+							}
+							.bottom {
+									gap: 18px;
+									.title {
+										font-size: 16px;
+									}
+									.info-box {
+										flex-direction: column;
+										gap: 4px;
+										.left,
+										.right {
+											flex: none;
+											width: 100%;
+											.info {
+												display: grid;
+												grid-template-columns: minmax(92px, 0.9fr) minmax(0, 1.1fr);
+												align-items: flex-start;
+												column-gap: 12px;
+												width: 100%;
+												min-width: 0;
+												.title {
+													width: auto;
+													min-width: 0;
+													font-size: 13px;
+													line-height: 28px;
+												}
+												.data {
+													width: auto;
+													min-width: 0;
+													text-align: right;
+													font-size: 13px;
+													line-height: 28px;
+													white-space: normal;
+													overflow-wrap: anywhere;
+												}
+											}
+										}
+									}
+							}
+						}
+						.address-config {
+							padding: 20px 18px;
+							gap: 18px;
+							.title {
+								font-size: 16px;
+							}
+							.map-box {
+								height: 280px;
+							}
+						}
+						.agent-info {
+							.title {
+								font-size: 18px;
+							}
+							.agent-wrapper {
+								flex-direction: column;
+								align-items: stretch;
+								padding: 18px;
+								gap: 18px;
+								.right {
+									max-width: 100%;
+									.agent-img-wrapper {
+										padding: 22px;
+										.agent-content {
+											gap: 30px;
+										}
+									}
+								}
+								.left {
+									max-width: 100%;
+									.agent-inner {
+										padding-top: 6px;
+										.agent-input-wrapper textarea {
+											height: 90px;
+										}
+									}
+								}
+							}
+						}
+						.reviews-config {
+							padding: 20px 18px 28px;
+							.filter-box {
+								margin-bottom: 18px;
+								.review-cnt .reviews {
+									width: auto;
+									font-size: 16px;
+								}
+							}
+							.review-list {
+								.review-config {
+									.review-mb-info .img-name-box {
+										width: auto;
+										gap: 12px;
+										.img-box {
+											width: 50px;
+											height: 50px;
+										}
+									}
+									.desc-box .description {
+										font-size: 13px;
+									}
+								}
+							}
+						}
+						.leave-review-config {
+							padding: 20px 18px;
+							.main-title {
+								font-size: 16px;
+							}
+							.submit-btn .submit-review {
+								width: 100%;
+								padding: 14px 20px;
+							}
+						}
+					}
+					.right-config {
+						padding: 22px 18px;
+						gap: 14px;
+						.price {
+							font-size: 20px;
+						}
+						.date-wrapper {
+							flex-direction: row;
+							gap: 12px;
+							.info-box {
+								flex: 1 1 0;
+								min-width: 0;
+							}
+						}
+						input {
+							height: 46px;
+							font-size: 13px;
+						}
+						.reservation-btn {
+							padding: 14px 20px;
+							font-size: 16px;
+						}
+					}
+				}
+				.similar-properties-config {
+					gap: 22px;
+					.title-pagination-box {
+						flex-wrap: wrap;
+						gap: 14px;
+						.title-box .main-title {
+							font-size: 22px;
+						}
+					}
+					.cards-box .similar-homes-swiper .similar-homes-slide {
+						width: 280px;
+					}
+				}
+			}
+		}
+
+		/* Small phone */
+		@media screen and (max-width: 480px) {
+			padding-top: 64px;
+			.container {
+				padding: 0 12px;
+			}
+			.property-detail-config {
+				.property-info-config {
+					.info {
+						.left-box .title-main {
+							font-size: 20px;
+						}
+						.right-box {
+							p {
+								font-size: 18px;
+							}
+						}
+					}
+					.images .wrapper {
+						height: 280px;
+					}
+				}
+				.property-desc-config {
+					.left-config {
+						.options-config {
+							grid-template-columns: 1fr 1fr;
+							gap: 12px;
+							.option {
+								.svg-box {
+									width: 40px;
+									height: 40px;
+									img {
+										width: 22px;
+									}
+								}
+								.option-includes {
+									.title,
+									.option-data {
+										font-size: 12px;
+									}
+								}
+							}
+						}
+						.address-config .map-box {
+							height: 220px;
+						}
+						.agent-info .agent-wrapper {
+							padding: 16px 14px;
+							.right .agent-img-wrapper {
+								padding: 18px;
+								.agent-img-name .agent-img {
+									width: 88px;
+									height: 88px;
+								}
+								.agent-content {
+									gap: 16px;
+									.agent-content-inner h2.agent-content-number {
+										font-size: 16px;
+									}
+								}
+							}
+						}
+					}
+					.right-config {
+						.date-wrapper {
+							flex-direction: column;
+							gap: 6px;
+						}
+					}
+				}
+				.similar-properties-config {
+					.cards-box .similar-homes-swiper .similar-homes-slide {
+						width: 240px;
 					}
 				}
 			}

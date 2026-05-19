@@ -238,10 +238,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 		}
 	};
 
-	if (device === 'mobile') {
-		return <div>PROPERTY DETAIL PAGE</div>;
-	} else {
-		return (
+	return (
 			<div id={'property-detail-page'}>
 				<div className={'container'}>
 					<Stack className={'property-detail-config'}>
@@ -453,7 +450,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 											<Stack className={'left'}>
 												<Box component={'div'} className={'info'}>
 													<Typography className={'title'}>Price</Typography>
-													<Typography className={'data'}>${formatterStr(property?.propertyPrice)} night</Typography>
+													<Typography className={'data'}>${formatterStr(property?.propertyPrice)} / night</Typography>
 												</Box>
 												<Box component={'div'} className={'info'}>
 													<Typography className={'title'}>Guests</Typography>
@@ -783,7 +780,6 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 				</div>
 			</div>
 		);
-	}
 };
 
 PropertyDetail.defaultProps = {
