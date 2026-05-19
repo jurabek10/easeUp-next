@@ -10,6 +10,7 @@ import { PropertiesInquiry } from '../../libs/types/property/property.input';
 import { Property } from '../../libs/types/property/property';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { GET_PROPERTIES } from '../../apollo/user/query';
 import { useMutation, useQuery } from '@apollo/client';
@@ -37,6 +38,23 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	const [sortingOpen, setSortingOpen] = useState(false);
 	const [filterSortName, setFilterSortName] = useState('New');
 	const [selectedType, setSelectedType] = useState<string | null>(null);
+	const [typeMenuAnchor, setTypeMenuAnchor] = useState<null | HTMLElement>(null);
+	const typeMenuOpen = Boolean(typeMenuAnchor);
+
+	const propertyTypes = [
+		{ id: 'all', label: 'All', icon: '/img/icons/propertTypes/all.svg' },
+		{ id: 'park', label: 'Park', icon: '/img/icons/propertTypes/parks.svg' },
+		{ id: 'countryside', label: 'Countryside', icon: '/img/icons/propertTypes/countryside.svg' },
+		{ id: 'hanok', label: 'Hanok', icon: '/img/icons/propertTypes/hanoks.svg' },
+		{ id: 'lake', label: 'Lake', icon: '/img/icons/propertTypes/lake.svg' },
+		{ id: 'skiing', label: 'Skiing', icon: '/img/icons/propertTypes/skiing.svg' },
+		{ id: 'farm', label: 'Farm', icon: '/img/icons/propertTypes/farms.svg' },
+		{ id: 'pool', label: 'Pool', icon: '/img/icons/propertTypes/pool.svg' },
+		{ id: 'camping', label: 'Camping', icon: '/img/icons/propertTypes/camping.svg' },
+		{ id: 'play', label: 'Play', icon: '/img/icons/propertTypes/play.svg' },
+		{ id: 'luxe', label: 'Luxe', icon: '/img/icons/propertTypes/luxe.svg' },
+	];
+	const activeTypeLabel = propertyTypes.find((t) => t.id === selectedType)?.label ?? 'All Destinations';
 
 	/** APOLLO REQUESTS **/
 	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
@@ -239,51 +257,83 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 		setAnchorEl(null);
 	};
 
-	if (device === 'mobile') {
-		return <h1>PROPERTIES MOBILE</h1>;
-	} else {
-		return (
+	const sortDropdown = (
+		<Box component={'div'} className={'sort'}>
+			<span>Sort by</span>
+			<div>
+				<Button
+					onClick={sortingClickHandler}
+					endIcon={<KeyboardArrowDownRoundedIcon style={{ width: '20px' }} />}
+				>
+					{filterSortName}
+				</Button>
+				<Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px' }}>
+					<MenuItem
+						onClick={sortingHandler}
+						id={'new'}
+						disableRipple
+						sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
+					>
+						New
+					</MenuItem>
+					<MenuItem
+						onClick={sortingHandler}
+						id={'lowest'}
+						disableRipple
+						sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
+					>
+						Lowest Price
+					</MenuItem>
+					<MenuItem
+						onClick={sortingHandler}
+						id={'highest'}
+						disableRipple
+						sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
+					>
+						Highest Price
+					</MenuItem>
+				</Menu>
+			</div>
+		</Box>
+	);
+
+	return (
 			<div id="property-list-page" style={{ position: 'relative' }}>
 				<div className="container">
-					<Stack component={'div'} className={'right'}>
-						<Box component={'div'} className={'sort'}>
-							<span>Sort by</span>
-							<div>
-								<Button
-									onClick={sortingClickHandler}
-									endIcon={<KeyboardArrowDownRoundedIcon style={{ width: '20px' }} />}
+					<div className="mobile-type-select">
+						<Button
+							className="type-select-btn"
+							onClick={(e: MouseEvent<HTMLButtonElement>) => setTypeMenuAnchor(e.currentTarget)}
+							startIcon={<TuneRoundedIcon />}
+							endIcon={<KeyboardArrowDownRoundedIcon />}
+						>
+							<span className="label-text">{activeTypeLabel}</span>
+						</Button>
+						<Menu
+							anchorEl={typeMenuAnchor}
+							open={typeMenuOpen}
+							onClose={() => setTypeMenuAnchor(null)}
+							PaperProps={{ className: 'type-menu-paper' }}
+							anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+							transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+						>
+							{propertyTypes.map((type) => (
+								<MenuItem
+									key={type.id}
+									id={type.id}
+									onClick={(e: React.MouseEvent<HTMLLIElement>) => {
+										sortingTypeHandler(e);
+										setTypeMenuAnchor(null);
+									}}
+									className={`type-menu-item ${selectedType === type.id ? 'active' : ''}`}
 								>
-									{filterSortName}
-								</Button>
-								<Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px' }}>
-									<MenuItem
-										onClick={sortingHandler}
-										id={'new'}
-										disableRipple
-										sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
-									>
-										New
-									</MenuItem>
-									<MenuItem
-										onClick={sortingHandler}
-										id={'lowest'}
-										disableRipple
-										sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
-									>
-										Lowest Price
-									</MenuItem>
-									<MenuItem
-										onClick={sortingHandler}
-										id={'highest'}
-										disableRipple
-										sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
-									>
-										Highest Price
-									</MenuItem>
-								</Menu>
-							</div>
-						</Box>
-					</Stack>
+									<img src={type.icon} alt={type.label} />
+									<span>{type.label}</span>
+								</MenuItem>
+							))}
+						</Menu>
+					</div>
+
 					<div className="product-page-top">
 						<div className="top-btn-wrapper">
 							<button className="top-btn">
@@ -424,6 +474,9 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 							{/* @ts-ignore */}
 
 							<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
+							<Stack component={'div'} className={'right'}>
+								{sortDropdown}
+							</Stack>
 						</Stack>
 						<Stack className="main-config" mb={'76px'}>
 							<Stack className={'list-config'}>
@@ -466,7 +519,6 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 				</div>
 			</div>
 		);
-	}
 };
 
 PropertyList.defaultProps = {

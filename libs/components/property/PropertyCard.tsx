@@ -27,10 +27,7 @@ const PropertyCard = (props: PropertyCardType) => {
 		? `${REACT_APP_API_URL}/${property?.propertyImages[0]}`
 		: '/img/banner/header1.svg';
 
-	if (device === 'mobile') {
-		return <div>PROPERTY CARD</div>;
-	} else {
-		return (
+	return (
 			<Stack className="card-config">
 				<Stack className="top">
 					<Link
@@ -116,7 +113,6 @@ const PropertyCard = (props: PropertyCardType) => {
 				</Stack>
 			</Stack>
 		);
-	}
 };
 
 export default PropertyCard;

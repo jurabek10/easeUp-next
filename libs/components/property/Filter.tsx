@@ -20,6 +20,7 @@ import { useRouter } from 'next/router';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { propertyGuests } from '../../config';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 
 const MenuProps = {
 	PaperProps: {
@@ -536,11 +537,8 @@ const Filter = (props: FilterType) => {
 		}
 	};
 
-	if (device === 'mobile') {
-		return <div>PROPERTIES FILTER</div>;
-	} else {
-		return (
-			<Stack className={'filter-main-wrapper'}>
+	return (
+			<div className={'filter-main-wrapper'}>
 				<Box component={'div'} className={'input-wrapper'}>
 					<OutlinedInput
 						value={searchText}
@@ -574,8 +572,8 @@ const Filter = (props: FilterType) => {
 				</Box>
 				<Box component={'div'} className="filter-wrapper" onClick={toggleFilterVisibility}>
 					<button className={'filter-btn'}>
-						<img className={'filter-icon'} src="/img/icons/filter.svg" alt="" />
-						<span>Filters</span>
+						<TuneRoundedIcon className={'filter-icon'} />
+						<span className={'label'}>Filters</span>
 					</button>
 				</Box>
 				{/* <div className="product-page-top">
@@ -950,9 +948,8 @@ const Filter = (props: FilterType) => {
 						</div>
 					</Stack>
 				</Stack>
-			</Stack>
+			</div>
 		);
-	}
 };
 
 export default Filter;
