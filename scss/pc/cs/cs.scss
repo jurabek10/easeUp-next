@@ -5,9 +5,12 @@
 		padding: 60px 0px 60px;
 		width: 100%;
 		height: auto;
+		box-sizing: border-box;
 		.container {
 			display: flex;
 			flex-direction: column;
+			width: 100%;
+			box-sizing: border-box;
 			.cs-main-info {
 				display: flex;
 				flex-direction: column;
@@ -166,8 +169,10 @@
 						display: flex;
 						flex-direction: row;
 						justify-content: center;
+						flex-wrap: wrap;
 						div {
 							width: 14%;
+							min-width: 110px;
 							height: 40px;
 							display: flex;
 							justify-content: center;
@@ -189,22 +194,38 @@
 					}
 					.wrap {
 						margin-top: 50px;
+						/* MUI's AccordionSummary stretches its children by default —
+						   center them so the Q/A badge stays compact next to wrapped text */
+						.MuiAccordionSummary-root .MuiAccordionSummary-content {
+							align-items: center;
+							gap: 4px;
+						}
 						.MuiAccordionDetails-root {
 							padding: 30px 20px;
 							background: #fafafa;
 						}
 						.badge {
 							margin: 0 24px;
-							display: inline-block;
-							padding: 4px 10px;
+							display: inline-flex;
+							align-items: center;
+							justify-content: center;
+							align-self: center;
+							flex-shrink: 0;
+							min-width: 32px;
+							height: 32px;
+							padding: 0 10px;
 							border: 1px solid #725ce8;
 							border-radius: 7px;
 							color: #725ce8;
+							font-size: 14px;
+							font-weight: 600;
+							line-height: 1;
 						}
 						.question {
 							.badge {
 								background: #e92c28;
 								color: #fff;
+								border-color: #e92c28;
 							}
 						}
 						.answer {
@@ -222,6 +243,281 @@
 				}
 			}
 		}
+
+		/* Large desktop */
+		@media screen and (max-width: 1280px) {
+			padding: 50px 0 50px;
+			.container {
+				.cs-main-info .info {
+					span {
+						font-size: 32px;
+					}
+				}
+			}
+		}
+
+		/* Tablet landscape */
+		@media screen and (max-width: 1024px) {
+			padding: 40px 0 40px;
+			.container {
+				.cs-main-info {
+					.info {
+						span {
+							font-size: 28px;
+						}
+						p {
+							font-size: 15px;
+						}
+					}
+					.btns {
+						margin-top: 36px;
+						div {
+							width: 170px;
+							height: 42px;
+						}
+					}
+				}
+				.cs-content {
+					.title {
+						font-size: 24px;
+						margin-bottom: 20px;
+					}
+					.notice-content .main {
+						.top {
+							padding: 20px 24px;
+						}
+						.bottom .notice-card {
+							padding: 20px 24px;
+							gap: 16px;
+							.notice-title {
+								font-size: 15px;
+							}
+						}
+					}
+					.faq-content {
+						.categories div {
+							width: auto;
+							min-width: 90px;
+							font-size: 14px;
+							padding: 0 8px;
+						}
+						.wrap {
+							margin-top: 30px;
+							.badge {
+								margin: 0 16px;
+								min-width: 30px;
+								height: 30px;
+								font-size: 13px;
+							}
+							.answer {
+								margin-left: 56px;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/* Tablet portrait */
+		@media screen and (max-width: 768px) {
+			padding: 30px 0 36px;
+			.container {
+				.cs-main-info {
+					.info {
+						span {
+							font-size: 24px;
+							text-align: center;
+						}
+						p {
+							font-size: 14px;
+							text-align: center;
+							margin-top: 4px;
+						}
+					}
+					.btns {
+						margin-top: 28px;
+						width: 100%;
+						div {
+							flex: 1 1 0;
+							width: auto;
+							max-width: 200px;
+							height: 44px;
+							font-size: 13px;
+						}
+					}
+				}
+				.cs-content {
+					margin-top: 28px;
+					.title {
+						font-size: 20px;
+						margin-bottom: 16px;
+						text-align: center;
+					}
+
+					/* Notice rows become stacked cards */
+					.notice-content .main {
+						border: none;
+						.top {
+							display: none; /* desktop column headers */
+						}
+						.bottom {
+							gap: 12px;
+							.notice-card {
+								flex-direction: column;
+								align-items: flex-start;
+								padding: 16px;
+								gap: 10px;
+								border: 1px solid #eee;
+								border-radius: 12px;
+								background: #ffffff;
+								box-shadow: 0 4px 14px rgba(24, 26, 32, 0.05);
+								> div {
+									margin: 0;
+								}
+								.notice-number {
+									min-width: 0;
+									font-size: 12px;
+									letter-spacing: 0.4px;
+									text-transform: uppercase;
+									padding: 4px 10px;
+									border: 1px solid #eb6753;
+									border-radius: 999px;
+									align-self: flex-start;
+								}
+								.notice-title {
+									width: 100%;
+									text-align: left;
+									font-size: 15px;
+									font-weight: 500;
+									line-height: 1.4;
+								}
+								.notice-date {
+									font-size: 12.5px;
+									color: #9a9a9a;
+								}
+							}
+						}
+					}
+
+					/* FAQ categories — horizontal scroll bar */
+					.faq-content {
+						margin-top: 20px;
+						.categories {
+							flex-wrap: nowrap;
+							overflow-x: auto;
+							-webkit-overflow-scrolling: touch;
+							justify-content: flex-start;
+							gap: 4px;
+							padding-bottom: 4px;
+							&::-webkit-scrollbar {
+								display: none;
+							}
+							div {
+								flex: 0 0 auto;
+								width: auto;
+								min-width: 0;
+								padding: 0 14px;
+								height: 38px;
+								font-size: 13px;
+								white-space: nowrap;
+							}
+						}
+						.wrap {
+							margin-top: 24px;
+							.MuiAccordionDetails-root {
+								padding: 22px 14px;
+							}
+							.badge {
+								margin: 0 12px;
+								padding: 0 8px;
+								min-width: 28px;
+								height: 28px;
+								font-size: 12px;
+							}
+							.answer {
+								margin-left: 0;
+								padding-left: 0;
+								white-space: normal;
+								flex-wrap: wrap;
+								align-items: flex-start;
+								gap: 8px;
+								.badge {
+									margin: 0;
+									align-self: flex-start;
+								}
+							}
+						}
+					}
+
+					.pagination {
+						margin-top: 32px;
+					}
+				}
+			}
+		}
+
+		/* Phone */
+		@media screen and (max-width: 480px) {
+			padding: 22px 0 28px;
+			.container {
+				.cs-main-info {
+					.info {
+						span {
+							font-size: 22px;
+						}
+						p {
+							font-size: 13px;
+						}
+					}
+					.btns {
+						margin-top: 22px;
+						div {
+							height: 40px;
+							font-size: 12.5px;
+						}
+					}
+				}
+				.cs-content {
+					margin-top: 22px;
+					.title {
+						font-size: 18px;
+					}
+					.notice-content .main .bottom {
+						gap: 10px;
+						.notice-card {
+							padding: 14px;
+							border-radius: 10px;
+							.notice-title {
+								font-size: 14px;
+							}
+						}
+					}
+					.faq-content {
+						.categories {
+							gap: 2px;
+							div {
+								padding: 0 12px;
+								height: 36px;
+								font-size: 12.5px;
+							}
+						}
+						.wrap {
+							margin-top: 20px;
+							.MuiAccordionDetails-root {
+								padding: 18px 12px;
+							}
+							.badge {
+								margin: 0 8px;
+								min-width: 26px;
+								height: 26px;
+								padding: 0 6px;
+								font-size: 11.5px;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	#add-faq-page {
 		display: flex;
@@ -229,12 +525,14 @@
 		justify-content: center;
 		align-items: center;
 		width: 1000px;
+		max-width: calc(100% - 32px);
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 80px;
 		padding: 40px;
 		border: 1px solid #181a20;
 		border-radius: 8px;
+		box-sizing: border-box;
 
 		.main-title-box {
 			.main-title {
@@ -311,6 +609,68 @@
 			&:hover {
 				background-color: #ffffff;
 				color: #f97316;
+			}
+		}
+
+		/* Tablet landscape */
+		@media screen and (max-width: 1024px) {
+			margin-top: 50px;
+			padding: 32px;
+			.main-title-box .main-title {
+				font-size: 26px;
+				margin-bottom: 36px;
+			}
+			.config .config-column .config-column-inner {
+				width: 100%;
+				margin-right: 0;
+			}
+			.config .config-column .answer-content-text {
+				width: 100%;
+				box-sizing: border-box;
+			}
+		}
+
+		/* Tablet portrait */
+		@media screen and (max-width: 768px) {
+			margin-top: 32px;
+			padding: 24px 18px;
+			border-radius: 12px;
+			.main-title-box .main-title {
+				font-size: 22px;
+				margin-bottom: 26px;
+			}
+			.config {
+				.config-column {
+					flex-direction: column;
+					align-items: stretch;
+					gap: 16px;
+					margin-bottom: 22px;
+					.config-column-inner {
+						width: 100%;
+						margin-right: 0;
+					}
+					.answer-content-text {
+						width: 100%;
+						box-sizing: border-box;
+					}
+				}
+				.input-title {
+					margin-top: 20px;
+				}
+			}
+			.insert-btn {
+				width: 100%;
+				max-width: 240px;
+				padding: 13px 20px;
+				font-size: 15px;
+			}
+		}
+
+		/* Phone */
+		@media screen and (max-width: 480px) {
+			padding: 20px 14px;
+			.main-title-box .main-title {
+				font-size: 20px;
 			}
 		}
 	}
