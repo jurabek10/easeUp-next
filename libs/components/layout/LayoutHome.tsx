@@ -31,13 +31,22 @@ const withLayoutMain = (Component: any) => {
 			return (
 				<>
 					<Head>
-						<title>Nestar</title>
-						<meta name={'title'} content={`Nestar`} />
+						<title>EaseUp</title>
+						<meta name={'title'} content={`EaseUp`} />
 					</Head>
 					<Stack id="mobile-wrap">
 						<Stack id={'top'}>
 							<Top />
 						</Stack>
+
+						<Stack className={'header-main'}>
+							<FiberContainer />
+						</Stack>
+						<div className="filter-wrapper">
+							<Stack className={'container'}>
+								<HeaderFilter />
+							</Stack>
+						</div>
 
 						<Stack id={'main'}>
 							<Component {...props} />
