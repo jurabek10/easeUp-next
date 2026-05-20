@@ -475,12 +475,21 @@
 	cursor: pointer;
 	border: 0.5px solid #181a20;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+	box-sizing: border-box;
+	max-width: 100%;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+	&:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+	}
 
 	.card-wrapper {
 		display: flex;
 		flex-direction: row;
 		position: relative;
 		width: 640px;
+		max-width: 100%;
 		height: 355px;
 		.left {
 			position: relative;
@@ -492,6 +501,7 @@
 				position: absolute;
 				top: -25px;
 				width: 360px;
+				max-width: calc(100% - 40px);
 				object-fit: cover;
 				border-radius: 12px;
 			}
@@ -663,4 +673,95 @@
 	// 		line-height: normal;
 	// 	}
 	// }
+
+	/* Tablet portrait */
+	@media screen and (max-width: 768px) {
+		width: 100% !important;
+		height: auto !important;
+		.card-wrapper {
+			flex-direction: column;
+			width: 100%;
+			height: auto;
+			.left {
+				width: 100%;
+				padding: 30px 20px 20px;
+				.card-img {
+					position: relative;
+					top: 0;
+					width: 100%;
+					max-width: 100%;
+					height: 200px;
+				}
+				.bottom {
+					margin-top: 20px;
+					.date-box {
+						.day {
+							font-size: 3rem;
+						}
+						.month {
+							font-size: 1.4rem;
+						}
+					}
+				}
+			}
+			.right {
+				width: 100%;
+				padding: 16px 20px 22px;
+				.title {
+					font-size: 1.05rem;
+				}
+				.article-content .article-desc {
+					height: auto;
+					max-height: 110px;
+					padding-top: 14px;
+				}
+				.arrow-wrapper {
+					width: 60px;
+					height: 60px;
+					margin-top: 12px;
+				}
+			}
+		}
+	}
+
+	/* Phone */
+	@media screen and (max-width: 480px) {
+		.card-wrapper {
+			.left {
+				padding: 24px 16px 16px;
+				.card-img {
+					height: 170px;
+				}
+				.bottom {
+					.date-box {
+						.day {
+							font-size: 2.4rem;
+						}
+						.month {
+							font-size: 1.2rem;
+						}
+					}
+				}
+			}
+			.right {
+				padding: 14px 16px 20px;
+				.title {
+					font-size: 1rem;
+				}
+				.writer-wrapper {
+					margin-top: 14px;
+					margin-bottom: 10px;
+				}
+				.article-content .article-desc {
+					max-height: 90px;
+					padding-top: 12px;
+					font-size: 0.82rem;
+				}
+				.arrow-wrapper {
+					width: 52px;
+					height: 52px;
+				}
+			}
+		}
+	}
 }
