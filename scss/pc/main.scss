@@ -1096,6 +1096,7 @@ body::-webkit-scrollbar {
 		}
 		.container {
 			margin-top: 175px;
+			flex-direction: column;
 			strong {
 				color: #fff;
 				font-family: $font;
@@ -1113,6 +1114,49 @@ body::-webkit-scrollbar {
 				font-style: normal;
 				font-weight: 400;
 				line-height: 26px;
+			}
+		}
+
+		@media screen and (max-width: 1280px) {
+			height: 480px;
+			.container {
+				margin-top: 160px;
+				strong { font-size: 42px; }
+				span { font-size: 22px; }
+			}
+		}
+		@media screen and (max-width: 1024px) {
+			height: 400px;
+			.container {
+				margin-top: 140px;
+				strong { font-size: 36px; }
+				span { font-size: 20px; }
+			}
+		}
+		@media screen and (max-width: 768px) {
+			height: 320px;
+			&.auth {
+				height: 240px;
+			}
+			.container {
+				margin-top: 120px;
+				strong {
+					font-size: 28px;
+					letter-spacing: 0.4px;
+				}
+				span {
+					font-size: 16px;
+					line-height: 22px;
+					margin-top: 6px;
+				}
+			}
+		}
+		@media screen and (max-width: 480px) {
+			height: 260px;
+			.container {
+				margin-top: 100px;
+				strong { font-size: 24px; }
+				span { font-size: 14px; }
 			}
 		}
 	}
