@@ -250,6 +250,156 @@
 					}
 				}
 			}
+
+			/* Tablet landscape */
+			@media screen and (max-width: 1024px) {
+				gap: 36px;
+				.main-title-box .right-box .main-title {
+					font-size: 26px;
+				}
+				.list-box {
+					padding: 22px 18px;
+					.listing-title-box {
+						gap: 24px;
+						padding: 14px 12px 14px 18px;
+						:first-child {
+							margin-right: 0;
+							flex: 1;
+						}
+					}
+					.property-card-box {
+						gap: 12px;
+						.image-box {
+							margin-right: 14px;
+						}
+						.information-box {
+							width: 180px;
+						}
+						.date-box,
+						.status-box,
+						.views-box {
+							margin-right: 16px;
+						}
+					}
+				}
+			}
+
+			/* Tablet portrait — row becomes a card */
+			@media screen and (max-width: 768px) {
+				gap: 24px;
+				.main-title-box .right-box {
+					width: 100%;
+					.main-title {
+						font-size: 22px;
+					}
+					.sub-title {
+						font-size: 13px;
+					}
+				}
+				.property-list-box .tab-name-box {
+					height: 44px;
+					.tab-name,
+					.active-tab-name {
+						width: auto;
+						min-width: 90px;
+						font-size: 14px;
+					}
+				}
+				.list-box {
+					padding: 18px 14px;
+					min-height: auto;
+					.listing-title-box {
+						display: none;
+					}
+					.property-card-box {
+						flex-direction: row;
+						flex-wrap: wrap;
+						gap: 10px 16px;
+						padding: 16px;
+						border: 1px solid #eee;
+						border-radius: 12px;
+						margin-top: 0;
+						margin-bottom: 14px;
+						border-bottom: 1px solid #eee;
+						.image-box {
+							width: 96px;
+							height: 80px;
+							margin-right: 0;
+						}
+						.information-box {
+							width: calc(100% - 112px);
+							padding: 0;
+							.name {
+								font-size: 14px;
+								margin-bottom: 4px;
+							}
+							.address {
+								font-size: 12px;
+								margin-bottom: 8px;
+							}
+							.price {
+								font-size: 15px;
+								font-weight: 600;
+							}
+						}
+						.date-box,
+						.status-box,
+						.views-box {
+							width: auto;
+							height: auto;
+							margin: 0;
+							align-items: flex-start;
+							justify-content: flex-start;
+							flex-direction: row;
+							gap: 6px;
+							&::before {
+								color: #717171;
+								font-size: 11px;
+								text-transform: uppercase;
+								letter-spacing: 0.3px;
+							}
+						}
+						.date-box::before {
+							content: 'Date:';
+						}
+						.status-box::before {
+							content: 'Status:';
+						}
+						.views-box::before {
+							content: 'Views:';
+						}
+						.status-box .coloured-box {
+							width: auto;
+							height: 28px;
+							padding: 0 12px;
+						}
+						.action-box {
+							margin-left: auto;
+						}
+					}
+				}
+			}
+
+			/* Phone */
+			@media screen and (max-width: 480px) {
+				.main-title-box .right-box .main-title {
+					font-size: 20px;
+				}
+				.list-box {
+					padding: 14px 12px;
+					.property-card-box {
+						padding: 12px;
+						gap: 8px 12px;
+						.image-box {
+							width: 80px;
+							height: 70px;
+						}
+						.information-box {
+							width: calc(100% - 92px);
+						}
+					}
+				}
+			}
 		}
 	}
 }

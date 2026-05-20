@@ -30,7 +30,7 @@
 				}
 			}
 		}
-		
+
 		.right-wrap {
 			width: 100%;
 			height: auto;
@@ -58,7 +58,9 @@
 				border: 1px solid #eee;
 				border-radius: 4px;
 			}
-			.btn-flex { margin-top: 40px; }
+			.btn-flex {
+				margin-top: 40px;
+			}
 		}
 		.css-guvl2y-MuiButtonBase-root-MuiButton-root {
 			background: #87cdf9;
@@ -66,17 +68,171 @@
 				fill: #000000;
 			}
 		}
-		.toastui-editor-popup-body { padding: 20px; }
+		.toastui-editor-popup-body {
+			padding: 20px;
+		}
 		.youtube-input {
 			padding: 8px 16px;
 			border: 1px solid #ddd;
 		}
 		.youtube-div {
-			display:flex;
+			display: flex;
 			flex-direction: column;
 		}
 		.toastui-editor-defaultUI button {
 			padding: 4px;
+		}
+
+		/* Tablet landscape — start polishing the editor's hard-coded inline widths */
+		@media screen and (max-width: 1024px) {
+			.main-title-box .right-box .main-title {
+				font-size: 26px;
+			}
+			/* TuiEditor renders <Stack style="margin: 40px"> wrapping the Category + Title
+			   row. Shrink margins so the row doesn't overflow narrow viewports. */
+			> .MuiStack-root > .MuiStack-root:first-of-type {
+				margin: 24px 16px !important;
+				gap: 20px;
+				.MuiBox-root {
+					width: 280px !important;
+				}
+				.MuiTextField-root {
+					width: 100% !important;
+				}
+			}
+		}
+
+		/* Tablet portrait — stack Category + Title vertically, full width */
+		@media screen and (max-width: 768px) {
+			.main-title-box .right-box {
+				width: 100%;
+				.main-title {
+					font-size: 22px;
+				}
+				.sub-title {
+					font-size: 13px;
+				}
+			}
+
+			/* Row containing Category select + Title text field */
+			> .MuiStack-root > .MuiStack-root:first-of-type {
+				margin: 18px 0 !important;
+				flex-direction: column !important;
+				gap: 16px;
+				justify-content: flex-start !important;
+
+				.MuiBox-root,
+				.form_row {
+					width: 100% !important;
+					box-sizing: border-box;
+				}
+				.MuiFormControl-root {
+					width: 100% !important;
+				}
+				.MuiTextField-root {
+					width: 100% !important;
+				}
+				/* "Category" / "Title" labels — tighten the 10px margin set inline */
+				h3 {
+					margin: 4px 0 6px !important;
+					font-size: 16px !important;
+				}
+			}
+
+			/* The Editor itself — let its toolbar scroll horizontally so it doesn't blow
+			   out the page on small screens, and shrink content height. */
+			.toastui-editor-defaultUI {
+				border-radius: 8px;
+				overflow: hidden;
+				.toastui-editor-toolbar {
+					overflow-x: auto;
+					-webkit-overflow-scrolling: touch;
+				}
+				.toastui-editor-md-container,
+				.toastui-editor-ww-container {
+					min-height: 320px;
+				}
+				/* Vertical split-preview is unusable on narrow screens — switch off */
+				.toastui-editor-md-splitter {
+					display: none;
+				}
+				.toastui-editor-md-preview {
+					display: none !important;
+				}
+			}
+
+			/* Register button row */
+			> .MuiStack-root > .MuiStack-root:last-of-type {
+				.MuiButtonBase-root {
+					margin: 18px 0 !important;
+					width: 100% !important;
+					max-width: 320px;
+					height: 46px !important;
+				}
+			}
+
+			.right-wrap {
+				.cont_bd {
+					padding: 22px 0;
+				}
+				.select {
+					width: 100%;
+					max-width: 280px;
+				}
+				.input-tit {
+					width: 100%;
+					box-sizing: border-box;
+				}
+				.btn-flex {
+					margin-top: 26px;
+					flex-wrap: wrap;
+					gap: 10px;
+				}
+			}
+			.youtube-input {
+				width: 100%;
+				box-sizing: border-box;
+			}
+		}
+
+		/* Phone */
+		@media screen and (max-width: 480px) {
+			.main-title-box .right-box .main-title {
+				font-size: 20px;
+			}
+			> .MuiStack-root > .MuiStack-root:first-of-type {
+				margin: 14px 0 !important;
+				gap: 12px;
+				h3 {
+					font-size: 15px !important;
+					margin: 2px 0 4px !important;
+				}
+			}
+
+			.toastui-editor-defaultUI {
+				.toastui-editor-md-container,
+				.toastui-editor-ww-container {
+					min-height: 260px;
+				}
+				/* Smaller toolbar icons */
+				.toastui-editor-toolbar-icons {
+					transform: scale(0.92);
+					transform-origin: center;
+				}
+			}
+
+			> .MuiStack-root > .MuiStack-root:last-of-type {
+				.MuiButtonBase-root {
+					margin: 14px 0 !important;
+					height: 44px !important;
+				}
+			}
+
+			.right-wrap {
+				.cont_bd {
+					padding: 18px 0;
+				}
+			}
 		}
 	}
 }

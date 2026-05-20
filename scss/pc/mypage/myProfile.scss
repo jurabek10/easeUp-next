@@ -43,6 +43,7 @@
 				border: 1px solid #c4c4c4;
 				background: #fff;
 				box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+				box-sizing: border-box;
 				.photo-box {
 					gap: 23px;
 					.title {
@@ -226,6 +227,7 @@
 				border: 1px solid #c4c4c4;
 				background: #fff;
 				box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+				box-sizing: border-box;
 				.top-inner-box {
 					gap: 20px;
 					.title {
@@ -315,6 +317,121 @@
 						font-weight: 600;
 						line-height: normal;
 					}
+				}
+			}
+
+			/* Tablet landscape */
+			@media screen and (max-width: 1024px) {
+				.main-title-box .right-box .main-title {
+					font-size: 26px;
+				}
+				.top-box {
+					padding: 24px 22px;
+					margin-top: 24px;
+					.photo-box .image-big-box {
+						gap: 28px;
+					}
+				}
+				.bottom-box {
+					padding: 24px 22px;
+				}
+			}
+
+			/* Tablet portrait */
+			@media screen and (max-width: 768px) {
+				gap: 16px;
+				.main-title-box {
+					.right-box {
+						width: 100%;
+						.main-title {
+							font-size: 22px;
+						}
+						.sub-title {
+							font-size: 13px;
+						}
+					}
+				}
+				.top-box {
+					padding: 20px 16px;
+					margin-top: 18px;
+					gap: 20px;
+					.photo-box .image-big-box {
+						flex-direction: column;
+						gap: 18px;
+						.image-box {
+							width: 100%;
+							max-width: 240px;
+							height: 180px;
+						}
+						.upload-big-box {
+							align-self: flex-start;
+							.labeler {
+								width: 100%;
+								max-width: 220px;
+							}
+						}
+					}
+					.small-input-box {
+						gap: 16px;
+						.input-box {
+							width: 100%;
+							input {
+								height: 50px;
+							}
+						}
+					}
+					.address-box input {
+						height: 50px;
+					}
+					.about-me-box {
+						.about-textarea {
+							height: 140px;
+						}
+						.update-button {
+							width: 100%;
+							max-width: 200px;
+							align-self: stretch;
+							margin-top: 20px;
+						}
+					}
+				}
+				.bottom-box {
+					padding: 20px 16px;
+					gap: 20px;
+					.top-inner-box .old-password-box input {
+						width: 100%;
+						height: 50px;
+					}
+					.bottom-inner-box {
+						flex-direction: column;
+						gap: 20px;
+						.new-password-box input {
+							height: 50px;
+						}
+					}
+					.change-password {
+						width: 100%;
+						max-width: 200px;
+						align-self: stretch;
+					}
+				}
+			}
+
+			/* Phone */
+			@media screen and (max-width: 480px) {
+				.main-title-box .right-box .main-title {
+					font-size: 20px;
+				}
+				.top-box {
+					padding: 16px 14px;
+					.photo-box .image-big-box {
+						.image-box {
+							height: 160px;
+						}
+					}
+				}
+				.bottom-box {
+					padding: 16px 14px;
 				}
 			}
 		}

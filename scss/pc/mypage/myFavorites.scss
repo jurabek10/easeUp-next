@@ -37,11 +37,12 @@
 			.favorites-list-box {
 				width: 100%;
 				height: auto;
-				flex-wrap: wrap;
-				flex-direction: row;
-				gap: 15px;
+				display: grid !important;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 20px;
 				.card-config {
-					width: 315px;
+					width: 100%;
+					max-width: 100%;
 					height: 413px;
 					margin-bottom: 7px;
 					border-radius: 12px;
@@ -206,6 +207,57 @@
 						font-weight: 400;
 						line-height: 26px;
 					}
+				}
+			}
+
+			/* Tablet landscape */
+			@media screen and (max-width: 1024px) {
+				gap: 36px;
+				.main-title-box .right-box .main-title {
+					font-size: 26px;
+				}
+				.favorites-list-box {
+					grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+					gap: 16px;
+				}
+			}
+
+			/* Tablet portrait */
+			@media screen and (max-width: 768px) {
+				gap: 24px;
+				.main-title-box .right-box {
+					width: 100%;
+					.main-title {
+						font-size: 22px;
+					}
+					.sub-title {
+						font-size: 13px;
+					}
+				}
+				.favorites-list-box {
+					grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+					gap: 14px;
+					.card-config {
+						height: auto;
+						.top {
+							height: 200px;
+						}
+						.bottom {
+							height: auto;
+							padding: 16px 14px 12px;
+						}
+					}
+				}
+			}
+
+			/* Phone */
+			@media screen and (max-width: 480px) {
+				.main-title-box .right-box .main-title {
+					font-size: 20px;
+				}
+				.favorites-list-box {
+					grid-template-columns: 1fr;
+					gap: 14px;
 				}
 			}
 		}

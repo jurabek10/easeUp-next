@@ -585,6 +585,157 @@
 					}
 				}
 			}
+
+			/* Tablet landscape */
+			@media screen and (max-width: 1024px) {
+				gap: 28px;
+				.main-title-box .main-title {
+					font-size: 26px;
+				}
+				.tabs-box {
+					gap: 32px;
+					padding: 14px 0 0 22px;
+				}
+				.config {
+					padding: 28px 22px;
+					.description-box .config-row,
+					.config-row,
+					.config-detail-row {
+						gap: 32px;
+					}
+					.images-box {
+						margin-bottom: 50px;
+						.upload-box {
+							height: 360px;
+						}
+					}
+					.wrap-box {
+						gap: 60px;
+						row-gap: 24px;
+						.amenity-box .amenity-text {
+							width: auto;
+						}
+					}
+					.map-frame {
+						height: 500px;
+						margin-bottom: 48px;
+					}
+				}
+			}
+
+			/* Tablet portrait */
+			@media screen and (max-width: 768px) {
+				gap: 22px;
+				.main-title-box {
+					.main-title {
+						font-size: 22px;
+					}
+					.sub-title {
+						font-size: 13px;
+					}
+				}
+				.tabs-box {
+					gap: 18px;
+					padding: 12px 0 0 16px;
+					overflow-x: auto;
+					-webkit-overflow-scrolling: touch;
+					white-space: nowrap;
+				}
+				.config {
+					padding: 22px 16px;
+					.description-box {
+						.config-row,
+						.config-detail-row {
+							flex-direction: column;
+							gap: 18px;
+						}
+						.buttons-row {
+							margin-top: 26px;
+							gap: 12px;
+							flex-wrap: wrap;
+							.prev-button,
+							.next-button {
+								width: 100%;
+								max-width: 220px;
+							}
+						}
+					}
+					.config-row,
+					.config-detail-row {
+						flex-direction: column;
+						gap: 18px;
+						.price-year-after-price .year-built-input {
+							width: 100%;
+						}
+					}
+					.images-box {
+						margin-bottom: 36px;
+						.upload-box {
+							height: 280px;
+							gap: 18px;
+							.browse-button {
+								width: 180px;
+							}
+						}
+						.gallery-box {
+							gap: 14px;
+							.image-box {
+								width: 110px;
+								height: 110px;
+							}
+						}
+					}
+					.map-frame {
+						height: 360px;
+						margin-bottom: 36px;
+					}
+					.wrap-box {
+						gap: 24px;
+						row-gap: 18px;
+						margin-bottom: 30px;
+					}
+					.owner-agent-input {
+						height: 160px;
+					}
+					.buttons-row {
+						margin-top: 20px;
+						flex-wrap: wrap;
+						gap: 12px;
+						justify-content: flex-start;
+						.prev-button,
+						.next-button,
+						.submit-button {
+							width: 100%;
+							max-width: 220px;
+						}
+					}
+				}
+			}
+
+			/* Phone */
+			@media screen and (max-width: 480px) {
+				.main-title-box .main-title {
+					font-size: 20px;
+				}
+				.config {
+					padding: 18px 14px;
+					.images-box {
+						.upload-box {
+							height: 240px;
+							.text-box .drag-title {
+								font-size: 15px;
+							}
+						}
+						.gallery-box .image-box {
+							width: 96px;
+							height: 96px;
+						}
+					}
+					.map-frame {
+						height: 280px;
+					}
+				}
+			}
 		}
 	}
 }
