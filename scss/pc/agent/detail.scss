@@ -17,6 +17,9 @@
 				display: flex;
 				flex-direction: row;
 				justify-content: space-between;
+				width: 100%;
+				gap: 50px;
+
 				.left {
 					position: relative;
 					display: flex;
@@ -24,12 +27,13 @@
 					// justify-content: center;
 					// align-items: center;
 					width: 400px;
-					height: 550px;
+					flex-shrink: 0;
+					min-height: 550px;
 					box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
 					border-radius: 10px;
 					.img-wrapper {
 						position: relative;
-						width: 400px;
+						width: 100%;
 						height: 200px;
 						border-radius: 10px 10px 0px 0px;
 						.agent-img {
@@ -41,10 +45,12 @@
 							border-radius: 50%;
 							object-fit: cover;
 							cursor: pointer;
+							border: 3px solid #fff;
+							box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 						}
 						.agent-info {
 							padding: 10px 12px;
-							background: rgba(255, 255, 255, 0.8);
+							background: rgba(255, 255, 255, 0.9);
 							position: absolute;
 							top: 150px;
 							right: 5px;
@@ -54,16 +60,29 @@
 							justify-content: space-between;
 							color: #181a20;
 							border-radius: 15px;
+							max-width: calc(100% - 130px);
 							.agent-name {
-								margin-right: 10px;
+								margin: 0 10px 0 0;
+								font-size: 16px;
 								cursor: pointer;
+								white-space: nowrap;
+								overflow: hidden;
+								text-overflow: ellipsis;
 							}
 							.agent-type {
-								margin-right: 8px;
+								margin: 0 8px 0 0;
+								font-size: 13px;
+								color: #f97316;
+								font-weight: 600;
 							}
 							.agent-phone {
+								margin: 0;
 								max-width: 105px;
 								text-decoration: underline;
+								font-size: 13px;
+								white-space: nowrap;
+								overflow: hidden;
+								text-overflow: ellipsis;
 							}
 						}
 					}
@@ -73,39 +92,50 @@
 						flex-direction: row;
 						justify-content: space-between;
 						margin-top: 50px;
-						padding-right: 10px;
-						padding-left: 10px;
-						padding-bottom: 30px;
-						border-bottom: 1px solid black;
+						padding: 0 16px 30px;
+						border-bottom: 1px solid #e0e0e0;
+						gap: 8px;
 						.agent-stats-inner {
+							flex: 1;
+							min-width: 0;
 							display: flex;
 							flex-direction: column;
 							justify-content: center;
 							align-items: center;
+							text-align: center;
 							.agent-stats-number {
-								font-size: 15px;
-								font-weight: 600;
+								font-size: 18px;
+								font-weight: 700;
 								color: #181a20;
-								margin-bottom: 5px;
+								margin: 0 0 4px;
 							}
 							.agent-stats-txt {
-								font-size: 15px;
+								font-size: 13px;
 								color: #818181;
+								margin: 0;
+								text-transform: uppercase;
+								letter-spacing: 0.3px;
 							}
 						}
 					}
 					.agent-desc-wrapper {
 						margin-top: 20px;
+						padding: 0 16px 16px;
 						.agent-desc {
 							text-align: center;
-							height: 200px;
+							max-height: 200px;
 							overflow: hidden;
+							color: #181a20;
+							font-family: $font;
+							font-size: 14px;
+							line-height: 22px;
 						}
 					}
 				}
 				.right {
-					margin-left: 50px;
-					width: 850px;
+					margin-left: 0;
+					flex: 1;
+					min-width: 0;
 					display: flex;
 					flex-direction: column;
 
@@ -115,11 +145,14 @@
 						align-items: center;
 						justify-content: space-between;
 						margin-bottom: 30px;
+						gap: 16px;
+						flex-wrap: wrap;
 
 						.buttons {
 							display: flex;
 							flex-direction: row;
 							align-items: center;
+							flex-wrap: wrap;
 
 							.right-top-btn {
 								font-size: 16px;
@@ -148,37 +181,70 @@
 							padding: 10px 25px;
 							background-color: #f97316;
 							color: #ffffff;
+							border-radius: 10px;
+							white-space: nowrap;
+							&:hover {
+								background-color: #ea6708;
+							}
 						}
 					}
 
 					.agent-properties,
 					.agent-articles {
-						display: flex;
-						flex-direction: row;
-						flex-wrap: wrap;
+						display: grid;
+						grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+						gap: 20px;
+						width: 100%;
 
 						.wrap-main {
-							width: 425px;
+							width: 100%;
 							display: flex;
-							flex-direction: row;
-							flex-wrap: wrap;
+							flex-direction: column;
+							.property-big-card-box,
+							.article-big-card-box {
+								margin: 0;
+								width: 100%;
+								max-width: 100%;
+								height: auto;
+							}
 						}
 						.pagination {
-							width: 800px;
+							grid-column: 1 / -1;
+							width: 100%;
 							display: flex;
 							flex-direction: column;
 							align-items: center;
 							justify-content: center;
-							margin-right: auto;
-							margin-left: auto;
+							margin-top: 30px;
+							.pagination-box {
+								display: flex;
+								justify-content: center;
+							}
 							span {
-								margin-top: 20px;
+								margin-top: 14px;
 								color: #181a20;
 								font-family: $font;
 								font-size: 14px;
 								font-style: normal;
 								font-weight: 400;
 								line-height: 26px;
+							}
+							.no-data {
+								display: flex;
+								flex-direction: column;
+								align-items: center;
+								gap: 12px;
+								padding: 40px 20px;
+								img {
+									width: 60px;
+									height: 60px;
+									opacity: 0.55;
+								}
+								p {
+									color: #717171;
+									font-size: 15px;
+									margin: 0;
+								}
 							}
 						}
 					}
@@ -187,11 +253,12 @@
 			.review-box {
 				position: relative;
 				margin-top: 75px;
-				padding: 58px 19px;
-				width: 95%;
+				padding: 58px 38px;
+				width: 100%;
 				height: auto;
 				border-radius: 24px;
 				background: #f6f6f6;
+				box-sizing: border-box;
 				.main-intro {
 					display: flex;
 					flex-direction: column;
@@ -223,9 +290,12 @@
 					background: #fff;
 					box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
 					.title-box {
+						display: flex;
+						align-items: center;
 						svg {
-							width: 10px;
-							height: 10px;
+							width: 16px;
+							height: 16px;
+							color: #f97316;
 						}
 						span {
 							margin-left: 8px;
@@ -247,6 +317,7 @@
 							display: flex;
 							flex-direction: row;
 							justify-content: space-between;
+							gap: 12px;
 							.left {
 								display: flex;
 								flex-direction: row;
@@ -282,6 +353,7 @@
 							.right {
 								display: flex;
 								flex-direction: row;
+								flex-shrink: 0;
 								svg {
 									color: #edf023;
 								}
@@ -341,6 +413,12 @@
 						font-style: normal;
 						font-weight: 400;
 						line-height: 26px;
+						box-sizing: border-box;
+						resize: vertical;
+						&:focus {
+							outline: none;
+							border-color: #f97316;
+						}
 					}
 					.submit-btn {
 						width: 100%;
@@ -348,6 +426,7 @@
 						justify-content: flex-end;
 						button:disabled {
 							background: #dfdfdf;
+							cursor: not-allowed;
 						}
 						.submit-review {
 							display: flex;
@@ -369,6 +448,269 @@
 								line-height: normal;
 							}
 						}
+					}
+				}
+			}
+		}
+
+		/* Large desktop */
+		@media screen and (max-width: 1280px) {
+			padding: 125px 0 65px;
+			.container .agent-wrapper {
+				gap: 36px;
+				.left {
+					width: 360px;
+				}
+				.right .agent-properties,
+				.right .agent-articles {
+					grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+					gap: 18px;
+				}
+			}
+		}
+
+		/* Tablet landscape */
+		@media screen and (max-width: 1024px) {
+			padding: 115px 0 55px;
+			.container .agent-wrapper {
+				gap: 28px;
+				.left {
+					width: 320px;
+					min-height: 500px;
+					.img-wrapper {
+						height: 180px;
+						.agent-img {
+							width: 90px;
+							height: 90px;
+						}
+						.agent-info {
+							top: 138px;
+						}
+					}
+					.agent-stats {
+						margin-top: 44px;
+						padding: 0 12px 26px;
+						.agent-stats-inner {
+							.agent-stats-number {
+								font-size: 17px;
+							}
+							.agent-stats-txt {
+								font-size: 12px;
+							}
+						}
+					}
+				}
+				.right .agent-properties,
+				.right .agent-articles {
+					grid-template-columns: 1fr;
+					gap: 20px;
+				}
+			}
+			.container .review-box {
+				padding: 48px 28px;
+				margin-top: 60px;
+				.review-wrap {
+					padding: 24px 20px;
+					margin-top: 40px;
+				}
+				.leave-review-config {
+					padding: 24px 28px;
+				}
+			}
+		}
+
+		/* Tablet portrait */
+		@media screen and (max-width: 768px) {
+			padding: 95px 0 50px;
+			.container .agent-wrapper {
+				flex-direction: column;
+				gap: 28px;
+				.left {
+					width: 100%;
+					min-height: auto;
+					padding-bottom: 8px;
+					.img-wrapper {
+						width: 100%;
+						height: 170px;
+						.agent-img {
+							bottom: -45px;
+							left: 16px;
+							width: 96px;
+							height: 96px;
+						}
+						.agent-info {
+							top: auto;
+							bottom: -18px;
+							right: 14px;
+							padding: 8px 12px;
+							border-radius: 12px;
+							max-width: calc(100% - 130px);
+							.agent-name {
+								font-size: 15px;
+							}
+							.agent-type,
+							.agent-phone {
+								font-size: 12px;
+							}
+						}
+					}
+					.agent-stats {
+						margin-top: 60px;
+						padding: 0 14px 24px;
+					}
+					.agent-desc-wrapper {
+						margin-top: 16px;
+						padding: 0 14px 14px;
+						.agent-desc {
+							font-size: 13px;
+							line-height: 20px;
+						}
+					}
+				}
+				.right {
+					margin-left: 0;
+					width: 100%;
+					.right-top {
+						margin-bottom: 22px;
+						gap: 12px;
+						.buttons {
+							flex: 1;
+							gap: 14px;
+							.right-top-btn {
+								margin-right: 0;
+								font-size: 14px;
+								padding-bottom: 6px;
+							}
+						}
+						.follow-btn {
+							padding: 8px 18px;
+							font-size: 13px;
+						}
+					}
+					.agent-properties,
+					.agent-articles {
+						grid-template-columns: 1fr;
+						gap: 16px;
+					}
+				}
+			}
+			.container .review-box {
+				margin-top: 50px;
+				padding: 36px 22px;
+				border-radius: 18px;
+				.main-intro {
+					span {
+						font-size: 24px;
+					}
+				}
+				.review-wrap {
+					margin-top: 28px;
+					padding: 20px 16px;
+					.review-card {
+						.info {
+							gap: 8px;
+							.left {
+								img {
+									width: 48px;
+									height: 52px;
+								}
+							}
+						}
+						p {
+							font-size: 13px;
+							line-height: 22px;
+						}
+					}
+				}
+				.leave-review-config {
+					padding: 22px 18px;
+					.submit-btn .submit-review {
+						width: 100%;
+						margin-top: 22px;
+						padding: 14px 24px;
+					}
+				}
+			}
+		}
+
+		/* Phone */
+		@media screen and (max-width: 480px) {
+			padding: 80px 0 36px;
+			.container .agent-wrapper {
+				gap: 22px;
+				.left {
+					box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+					.img-wrapper {
+						height: 150px;
+						.agent-img {
+							width: 84px;
+							height: 84px;
+							bottom: -38px;
+						}
+						.agent-info {
+							right: 10px;
+							padding: 6px 10px;
+							.agent-name {
+								font-size: 14px;
+							}
+						}
+					}
+					.agent-stats {
+						margin-top: 54px;
+						gap: 4px;
+						padding: 0 10px 20px;
+						.agent-stats-inner {
+							.agent-stats-number {
+								font-size: 16px;
+							}
+							.agent-stats-txt {
+								font-size: 11px;
+							}
+						}
+					}
+				}
+				.right {
+					.right-top {
+						.buttons {
+							gap: 10px;
+							.right-top-btn {
+								font-size: 13px;
+							}
+						}
+						.follow-btn {
+							padding: 7px 14px;
+							font-size: 12px;
+						}
+					}
+				}
+			}
+			.container .review-box {
+				padding: 28px 16px;
+				border-radius: 14px;
+				.main-intro {
+					span {
+						font-size: 20px;
+						letter-spacing: 0.3px;
+					}
+					p {
+						font-size: 13px;
+					}
+				}
+				.review-wrap {
+					padding: 16px 12px;
+					.title-box span {
+						font-size: 15px;
+					}
+				}
+				.leave-review-config {
+					padding: 18px 14px;
+					textarea {
+						height: 100px;
+						padding: 14px;
+					}
+					.submit-btn .submit-review {
+						margin-top: 18px;
+						padding: 12px 18px;
 					}
 				}
 			}
