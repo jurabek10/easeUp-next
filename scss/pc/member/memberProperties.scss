@@ -170,6 +170,236 @@
 						}
 					}
 				}
+
+				/* Tablet landscape */
+				@media screen and (max-width: 1024px) {
+					.main-title-box .right-box .main-title {
+						font-size: 26px;
+					}
+					.properties-list-box {
+						margin-top: 40px;
+						.list-box {
+							.listing-title-box {
+								gap: 24px;
+								padding: 14px 12px 14px 18px;
+								:first-child {
+									margin-right: 0;
+									flex: 1;
+								}
+							}
+							.property-card-box {
+								gap: 12px;
+								.image-box {
+									margin-right: 14px;
+								}
+								.information-box {
+									width: 190px;
+								}
+								.date-box,
+								.status-box,
+								.views-box {
+									margin-right: 16px;
+								}
+							}
+						}
+					}
+				}
+
+				/* Tablet portrait — row transforms into a proper listing card */
+				@media screen and (max-width: 768px) {
+					.main-title-box .right-box {
+						width: 100%;
+						.main-title {
+							font-size: 22px;
+						}
+					}
+					.properties-list-box {
+						margin-top: 28px;
+						.list-box {
+							display: flex;
+							flex-direction: column;
+							gap: 16px;
+							.listing-title-box {
+								display: none;
+							}
+							.property-card-box {
+								display: flex;
+								flex-direction: column;
+								align-items: stretch;
+								flex-wrap: nowrap;
+								width: 100%;
+								padding: 0;
+								margin: 0;
+								background: #ffffff;
+								border: 1px solid #ececec;
+								border-radius: 16px;
+								box-shadow: 0 6px 18px rgba(24, 26, 32, 0.06);
+								overflow: hidden;
+								transition: transform 0.2s ease, box-shadow 0.2s ease;
+								border-bottom: 1px solid #ececec;
+								cursor: pointer;
+
+								&:hover {
+									transform: translateY(-3px);
+									box-shadow: 0 12px 24px rgba(24, 26, 32, 0.1);
+								}
+
+								/* Image — hero at the top */
+								.image-box {
+									width: 100%;
+									height: 200px;
+									margin: 0;
+									padding: 0;
+									overflow: hidden;
+									img {
+										width: 100%;
+										height: 100%;
+										object-fit: cover;
+										border-radius: 0;
+									}
+								}
+
+								/* Title + address + price */
+								.information-box {
+									width: 100%;
+									padding: 14px 16px 6px;
+									.name {
+										font-size: 16px;
+										font-weight: 600;
+										margin-bottom: 4px;
+										color: #181a20;
+										line-height: 1.3;
+										display: -webkit-box;
+										-webkit-line-clamp: 1;
+										-webkit-box-orient: vertical;
+										overflow: hidden;
+									}
+									.address {
+										font-size: 13px;
+										color: #717171;
+										margin-bottom: 10px;
+										display: -webkit-box;
+										-webkit-line-clamp: 1;
+										-webkit-box-orient: vertical;
+										overflow: hidden;
+									}
+									.price {
+										font-size: 16px;
+										color: #f97316;
+										font-weight: 700;
+										strong {
+											font-weight: 700;
+										}
+									}
+								}
+
+								/* Meta row at the bottom: Date · Status · Views */
+								.date-box,
+								.status-box,
+								.views-box {
+									display: flex;
+									flex-direction: row;
+									align-items: center;
+									justify-content: flex-start;
+									width: auto;
+									height: auto;
+									margin: 0;
+									padding: 4px 16px;
+									gap: 8px;
+
+									&::before {
+										color: #717171;
+										font-size: 11px;
+										font-weight: 600;
+										text-transform: uppercase;
+										letter-spacing: 0.4px;
+										flex-shrink: 0;
+									}
+								}
+								.date-box {
+									padding-top: 10px;
+									border-top: 1px solid #f0f0f0;
+								}
+								.date-box::before {
+									content: 'Date';
+								}
+								.status-box::before {
+									content: 'Status';
+								}
+								.views-box::before {
+									content: 'Views';
+									align-self: center;
+								}
+								.views-box {
+									padding-bottom: 14px;
+								}
+								.date-box .date,
+								.views-box .views {
+									font-size: 13px;
+									color: #181a20;
+									font-weight: 500;
+									line-height: 1.4;
+								}
+								.status-box .coloured-box {
+									width: auto;
+									height: 26px;
+									padding: 0 12px;
+									border-radius: 14px;
+									align-items: center;
+									justify-content: center;
+									.status {
+										font-size: 12px;
+										font-weight: 600;
+										line-height: 1;
+									}
+								}
+							}
+						}
+					}
+				}
+
+				/* Phone */
+				@media screen and (max-width: 480px) {
+					.main-title-box .right-box .main-title {
+						font-size: 20px;
+					}
+					.properties-list-box {
+						margin-top: 22px;
+						.list-box {
+							gap: 14px;
+							.property-card-box {
+								border-radius: 14px;
+								.image-box {
+									height: 180px;
+								}
+								.information-box {
+									padding: 12px 14px 4px;
+									.name {
+										font-size: 15px;
+									}
+									.address {
+										font-size: 12.5px;
+										margin-bottom: 8px;
+									}
+									.price {
+										font-size: 15px;
+									}
+								}
+								.date-box,
+								.status-box,
+								.views-box {
+									padding: 4px 14px;
+								}
+								.date-box {
+									padding-top: 10px;
+								}
+								.views-box {
+									padding-bottom: 12px;
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
